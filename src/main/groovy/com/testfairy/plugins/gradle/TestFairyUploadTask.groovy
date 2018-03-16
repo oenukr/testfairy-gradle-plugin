@@ -38,11 +38,13 @@ class TestFairyUploadTask extends DefaultTask {
 
 		// use outputFile from packageApp task
 		String apkFilename = null
+		List<String> apkFiles = []
 		applicationVariant.outputs.each {
 			if (it.outputFile.exists()) {
 				String filename = it.outputFile.toString()
 				if (filename.endsWith(".apk")) {
 					apkFilename = filename
+					apkFiles.add(filename)
 				}
 			}
 		}
@@ -57,11 +59,13 @@ class TestFairyUploadTask extends DefaultTask {
 			project.logger.debug("Using proguard mapping file at ${proguardMappingFilename}")
 		}
 
-		def json = uploadApk(project, extension, apkFilename, proguardMappingFilename)
+		for (String apkFile : apkFiles) {
+            def json = uploadApk(project, extension, apkFile, proguardMappingFilename)
 
-		println ""
-		println "Successfully uploaded to TestFairy, build is available at:"
-		println json.build_url
+            println ""
+            println "Successfully uploaded to TestFairy, build is available at:"
+            println json.build_url
+        }
 	}
 
 	/**
