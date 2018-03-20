@@ -16,6 +16,7 @@ class TestFairyExtension {
 	private Boolean autoUpdate = false
 	private Boolean recordOnBackground = false
 	private Boolean uploadProguardMapping = false
+	private Boolean uploadUniversalApkOnly = false
 
 	private String serverEndpoint = "https://upload.testfairy.com"
 
@@ -124,6 +125,14 @@ class TestFairyExtension {
 
 	Boolean getUploadProguardMapping() {
 		return uploadProguardMapping
+	}
+
+	void uploadUniversalApkOnly(Boolean value) {
+		this.uploadUniversalApkOnly = value
+	}
+
+	Boolean getUploadUniversalApkOnly() {
+		return uploadUniversalApkOnly
 	}
 }
 

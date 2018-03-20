@@ -42,7 +42,7 @@ class TestFairyUploadTask extends DefaultTask {
 		applicationVariant.outputs.each {
 			if (it.outputFile.exists()) {
 				String filename = it.outputFile.toString()
-				if (filename.endsWith(".apk")) {
+				if (filename.endsWith(".apk") && includeInUpload(filename)) {
 					apkFilename = filename
 					apkFiles.add(filename)
 				}
@@ -66,6 +66,11 @@ class TestFairyUploadTask extends DefaultTask {
             println "Successfully uploaded to TestFairy, build is available at:"
             println json.build_url
         }
+	}
+
+	private Boolean includeInUpload(String filename) {
+		Boolean universalApkOnly = extension.getUploadUniversalApkOnly()
+		return !universalApkOnly || (universalApkOnly && filename.contains("-universal-"))
 	}
 
 	/**
