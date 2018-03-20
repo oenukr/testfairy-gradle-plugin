@@ -35,6 +35,7 @@ class TestFairyUploadTask extends DefaultTask {
 
 		String apiKey = extension.getApiKey()
 		String serverEndpoint = extension.getServerEndpoint()
+        Boolean universalApkOnly = extension.getUploadUniversalApkOnly()
 
 		// use outputFile from packageApp task
 		String apkFilename = null
@@ -42,7 +43,7 @@ class TestFairyUploadTask extends DefaultTask {
 		applicationVariant.outputs.each {
 			if (it.outputFile.exists()) {
 				String filename = it.outputFile.toString()
-				if (filename.endsWith(".apk") && includeInUpload(filename)) {
+				if (filename.endsWith(".apk") && (!universalApkOnly || (universalApkOnly && filename.contains("-universal-")))) {
 					apkFilename = filename
 					apkFiles.add(filename)
 				}
@@ -66,11 +67,6 @@ class TestFairyUploadTask extends DefaultTask {
             println "Successfully uploaded to TestFairy, build is available at:"
             println json.build_url
         }
-	}
-
-	private Boolean includeInUpload(String filename) {
-		Boolean universalApkOnly = extension.getUploadUniversalApkOnly()
-		return !universalApkOnly || (universalApkOnly && filename.contains("-universal-"))
 	}
 
 	/**
