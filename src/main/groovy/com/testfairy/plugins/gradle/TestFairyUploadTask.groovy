@@ -207,6 +207,11 @@ class TestFairyUploadTask extends DefaultTask {
 			entity.addPart('record-on-background', new StringBody("on"))
 		}
 
+		if (extension.getEnableShake()) {
+			// enable report bug by shake
+			entity.addPart('options', new StringBody("shake"))
+		}
+
 		return entity
 	}
 }

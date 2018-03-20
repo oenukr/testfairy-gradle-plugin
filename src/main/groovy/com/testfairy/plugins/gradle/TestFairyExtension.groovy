@@ -15,6 +15,7 @@ class TestFairyExtension {
 	private Boolean notify = true
 	private Boolean autoUpdate = false
 	private Boolean recordOnBackground = false
+	private Boolean enableShake = false
 	private Boolean uploadProguardMapping = false
 	private Boolean uploadUniversalApkOnly = false
 
@@ -117,6 +118,14 @@ class TestFairyExtension {
 
 	Boolean getRecordOnBackground() {
 		return recordOnBackground
+	}
+
+	void enableShake(Boolean value) {
+		this.enableShake = value
+	}
+
+	Boolean getEnableShake() {
+		return enableShake
 	}
 
 	void uploadProguardMapping(Boolean value) {
